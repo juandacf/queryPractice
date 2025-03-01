@@ -28,3 +28,11 @@ GROUP BY(a.fecha_movimiento, a.cantidad)
 HAVING a.fecha_movimiento BETWEEN '2023-01-10' AND '2023-03-10'
 ORDER BY 1;
 --query para sumar todas las entradas de dinero por fecha en un rango específico
+
+SELECT a.fecha_movimiento, a.cantidad
+FROM tab_kardexs AS a
+WHERE a.tipo_movimiento = 'Entrada' AND
+a.fecha_movimiento BETWEEN '2023-01-10' AND '2023-03-10'
+GROUP BY(a.fecha_movimiento, a.cantidad)
+ORDER BY 1;
+--query para sumar todas las entradas de dinero por fecha en un rango específico sin usar having
