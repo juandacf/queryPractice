@@ -19,3 +19,12 @@ SUM(a.cantidad_producto) AS suma,
 avg(a.cantidad_producto) as promedio
 FROM tab_productos a;
 --query para sacar sumas, promedios y conteos.
+
+
+SELECT a.fecha_movimiento, a.cantidad
+FROM tab_kardexs AS a
+WHERE a.tipo_movimiento = 'Entrada'
+GROUP BY(a.fecha_movimiento, a.cantidad)
+HAVING a.fecha_movimiento BETWEEN '2023-01-10' AND '2023-03-10'
+ORDER BY 1;
+--query para sumar todas las entradas de dinero por fecha en un rango específico
