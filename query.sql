@@ -53,3 +53,15 @@ SELECT MAX(id_kardex) FROM tab_kardexs;
 
 INSERT INTO tab_kardexs  VALUES ((SELECT MAX(id_kardex)+ 1 FROM tab_kardexs), 'Salida', 'Venta de Gaseosa Postobón', 30, '2023-03-02',14,2,7,7);
 --ejemplo de inserción de autoincremental.
+
+CREATE TEMPORARY TABLE pueba(
+	id_prueba INTEGER PRIMARY KEY NOT NULL,
+	nom_temporary VARCHAR NOT NULL,
+	tel_temporary VARCHAR NOT NULL
+);
+
+INSERT INTO pueba VALUES (1,'HOLA', '3008307198');
+
+SELECT * FROM pueba;
+
+--ejemplo de creación e inserción de dataa una tabla temporal.
