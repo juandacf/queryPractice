@@ -50,3 +50,6 @@ SELECT * FROM view_mov_dia;
 SELECT MAX(id_kardex) FROM tab_kardexs;
 
 --ejemplo para creación de vista. 
+
+INSERT INTO tab_kardexs  VALUES ((SELECT MAX(id_kardex)+ 1 FROM tab_kardexs), 'Salida', 'Venta de Gaseosa Postobón', 30, '2023-03-02',14,2,7,7);
+--ejemplo de inserción de autoincremental.
