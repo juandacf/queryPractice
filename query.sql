@@ -65,3 +65,29 @@ INSERT INTO pueba VALUES (1,'HOLA', '3008307198');
 SELECT * FROM pueba;
 
 --ejemplo de creación e inserción de dataa una tabla temporal.
+
+	SELECT id_producto, id_categoria, id_subcategorias_2, id_subcategorias_3, 
+	       SUM(cantidad) AS total_cantidad
+	FROM tab_kardexs
+	GROUP BY id_producto, id_categoria, id_subcategorias_2, id_subcategorias_3
+	ORDER BY total_cantidad DESC;
+	--Agrupar por concepto y sacar cuál es el producto que más rotación tiene 
+
+
+	SELECT id_producto, id_categoria, id_subcategorias_2, id_subcategorias_3, 
+	       SUM(cantidad) AS total_cantidad
+	FROM tab_kardexs
+	WHERE tipo_movimiento = 'Entrada'
+	GROUP BY id_producto, id_categoria, id_subcategorias_2, id_subcategorias_3
+	ORDER BY total_cantidad DESC;
+	--Query para el cálculo de entradas
+
+
+		SELECT id_producto, id_categoria, id_subcategorias_2, id_subcategorias_3, 
+	       SUM(cantidad) AS total_cantidad
+	FROM tab_kardexs
+	WHERE tipo_movimiento = 'Salida'
+	GROUP BY id_producto, id_categoria, id_subcategorias_2, id_subcategorias_3
+	ORDER BY total_cantidad DESC;
+	--Query para el cálculo de salidas
+
