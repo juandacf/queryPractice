@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS tab_pmtros(
     val_puntos DECIMAL(4) NOT NULL DEFAULT 0,
     PRIMARY KEY(id_empresa)
 );
+
+SELECT fun_insert_pmtros (1007669080, 'juanSAS', 19,29,0,10,5000);
 CREATE TABLE IF NOT EXISTS tab_unidades_medida
 (
     id_unidad_medida     DECIMAL(12)    PRIMARY KEY,
