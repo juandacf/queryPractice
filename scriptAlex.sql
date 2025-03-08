@@ -14,13 +14,13 @@ DROP TABLE IF EXISTS tab_unidades_medida;
 CREATE TABLE IF NOT EXISTS tab_pmtros(
     id_empresa DECIMAL(10,0) NOT NULL,
     nom_empresa VARCHAR NOT NULL,
-    val_iva DECIMAL (2,0) NOT NULL DEFAULT 19,
-    val_iva_carro DECIMAL(2,0) NOT NULL DEFAULT 2,
-    val_iva_otro DECIMAL(2,9) NOT NULL,
+    val_ivarefu DECIMAL(2,0) NOT NULL DEFAULT 19,
+    val_iva_car DECIMAL (2,0) NOT NULL DEFAULT 20,
+    val_iva_otro DECIMAL (2,0) NOT NULL,
     val_descuento DECIMAL(3,0) NOT NULL CHECK (val_descuento >= 0 AND val_descuento<=100),
     val_puntos DECIMAL(4) NOT NULL DEFAULT 0,
     PRIMARY KEY(id_empresa)
-)
+);
 CREATE TABLE IF NOT EXISTS tab_unidades_medida
 (
     id_unidad_medida     DECIMAL(12)    PRIMARY KEY,
