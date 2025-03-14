@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS tab_productos_proveedores
     FOREIGN KEY (id_proveedor) REFERENCES tab_proveedores(id_proveedor),
     FOREIGN KEY (id_producto) REFERENCES tab_productos(id_producto) -- Corregido
 );
-
+DROP TABLE IF EXISTS tab_kardex;
 CREATE TABLE IF NOT EXISTS tab_kardex
 (
     id_kardex             DECIMAL(12)    PRIMARY KEY,
@@ -125,6 +125,10 @@ CREATE TABLE IF NOT EXISTS tab_kardex
     cantidad              DECIMAL(4)     NOT NULL CHECK(cantidad>=1 AND cantidad <=9999),
     FOREIGN KEY (id_producto) REFERENCES tab_productos(id_producto) -- Corregido
 );
+
+CREATE INDEX idx_tipo_movim ON tab_kardex(tipo_movim);
+CREATE INDEX idx_ind_tipomov ON tab_kardex(ind_tipomov);
+CREATE INDEX idx_fecha_movim ON tab_kardex(fecha_movim);
 
 INSERT INTO tab_unidades_medida (id_unidad_medida, nombre_unidad_medida) VALUES
 (1, 'Kilogramo'),
