@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS tab_transito;
 DROP TABLE IF EXISTS tab_kardex;
 DROP TABLE IF EXISTS tab_productos_proveedores;
 DROP TABLE IF EXISTS tab_productos;
@@ -129,6 +130,17 @@ CREATE TABLE IF NOT EXISTS tab_kardex
 CREATE INDEX idx_tipo_movim ON tab_kardex(tipo_movim);
 CREATE INDEX idx_ind_tipomov ON tab_kardex(ind_tipomov);
 CREATE INDEX idx_fecha_movim ON tab_kardex(fecha_movim);
+
+CREATE TABLE tab_transito
+(
+    id_entrada   DECIMAL(12) NOT NULL,
+    id_kardex    DECIMAL(12) NOT NULL,
+    id_producto  DECIMAL(12) NOT NULL,
+    val_entrada  DECIMAL(4) NOT NULL,
+    PRIMARY KEY(id_entrada),
+    FOREIGN KEY(id_kardex) REFERENCES tab_kardex(id_kardex),
+    FOREIGN KEY(id_producto) REFERENCES tab_productos(id_producto)
+);
 
 INSERT INTO tab_unidades_medida (id_unidad_medida, nombre_unidad_medida) VALUES
 (1, 'Kilogramo'),
