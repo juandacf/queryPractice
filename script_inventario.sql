@@ -131,14 +131,14 @@ CREATE INDEX idx_tipo_movim ON tab_kardex(tipo_movim);
 CREATE INDEX idx_ind_tipomov ON tab_kardex(ind_tipomov);
 CREATE INDEX idx_fecha_movim ON tab_kardex(fecha_movim);
 
+DROP TABLE IF EXISTS tab_transito;
 CREATE TABLE tab_transito
 (
     id_entrada   DECIMAL(12) NOT NULL,
-    id_kardex    DECIMAL(12) NOT NULL,
     id_producto  DECIMAL(12) NOT NULL,
+    fec_entrada        TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
     val_entrada  DECIMAL(4) NOT NULL,
     PRIMARY KEY(id_entrada),
-    FOREIGN KEY(id_kardex) REFERENCES tab_kardex(id_kardex),
     FOREIGN KEY(id_producto) REFERENCES tab_productos(id_producto)
 );
 
@@ -158,6 +158,8 @@ INSERT INTO tab_unidades_medida (id_unidad_medida, nombre_unidad_medida) VALUES
 (13, 'Taza'),
 (14, 'Cucharada'),
 (15, 'Cucharadita');
+
+
 
 INSERT INTO tab_categorias (id_categoria, nombre_categoria) VALUES
 (1, 'Lácteos'),

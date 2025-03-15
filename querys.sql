@@ -91,3 +91,8 @@ SELECT * FROM pueba;
 	ORDER BY total_cantidad DESC;
 	--Query para el cálculo de salidas
 
+SELECT d.id_entrada, c.id_proveedor, c.nombre_proveedor,  a.id_producto, a.nombre_producto FROM tab_productos a
+INNER JOIN tab_productos_proveedores b ON a.id_producto= b.id_producto
+INNER JOIN tab_proveedores c ON c.id_proveedor = b.id_proveedor
+INNER JOIN tab_transito d ON d.id_producto = b. id_producto;
+--Query para encontrar el proveedor de un producto devuelto en la tab_transito
