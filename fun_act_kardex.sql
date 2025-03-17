@@ -1,5 +1,7 @@
 --SELECT * FROM tab_kardex;
 --SELECT fun_act_kardex(1,0,TRUE,1);
+
+-- SELECT fun_act_kardex(1,1,TRUE,4,2,1);
 CREATE OR REPLACE FUNCTION fun_act_kardex(wid_producto tab_kardex.id_producto%TYPE,
                                           wcantidad tab_kardex.cantidad%TYPE,
                                           wtipo_movim tab_kardex.tipo_movim%TYPE,
@@ -69,7 +71,7 @@ $BODY$
 						UPDATE tab_productos SET total_existencias = wtotal_existencias
 						WHERE id_producto = wid_producto;
 						IF FOUND THEN
-							RETURN 'Hemos terminado bien la vuelta con Entrada por Compra... Berraquitos';
+							RAISE NOTICE 'Hemos terminado bien la vuelta con Entrada por Compra... Berraquitos';
 						ELSE
 							RETURN 'La Ca...';
 						END IF;
@@ -79,6 +81,7 @@ $BODY$
 
 					SELECT a.id_producto, a.total_existencias INTO  wid_producto2, wtotal_existencias2 FROM tab_productos a
 					WHERE a.id_producto = wid_producto2;
+					RAISE NOTICE 'la cantidad de existencias es: %', wtotal_existencias2;
 					IF NOT FOUND OR wid_producto2 = NULL THEN
 						RETURN 'Dont be brutation... Go back to elementary school';
 					ELSE
@@ -87,7 +90,7 @@ $BODY$
 					IF wcantidad2 < 1 THEN
 						RETURN 'No hay cantidad en el producto.. Qué carajos le voy a sumar o restar???, tan toche';
 					END IF;
-					IF wcantidad2 > total_existencias2 THEN
+					IF wcantidad2 > wtotal_existencias2 THEN
 						RETURN 'No hay las existencias suficientes del producto requerido para hacer efectivo el cambio por devolución';
 					END IF;
 					INSERT INTO tab_kardex VALUES((SELECT COALESCE(MAX(id_kardex),0) + 1 FROM tab_kardex),
