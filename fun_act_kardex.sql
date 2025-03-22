@@ -113,6 +113,32 @@ $BODY$
 		ELSE
 -- ACÁ EVALUAREMOS LA SALIDA EN GENERAL
 		END IF;
+
+		IF jtipo_movim IS FALSE THEN
+            Case jind_tipomov
+                WHEN 2 THEN -- Salida por venta
+
+                    Insert into tab_kardex Values ((Select COALESCE(MAX(id_kardex),0 ) + 1 from tab_kardex), wid_producto, wtipo_movim, wfecha_movim, wind_tipomov, wcantidad);
+
+                        IF FOUND THEN
+                            wtotal_existencias = wtotal_existencias - wcantidad;
+                            Update tab_productos set total_existencias = wtotal_existencias
+                            Where id_producto = wid_producto;
+
+                            IF FOUND THEN
+                                Return 'La cantidad se ha actualizado correctamente';
+                            ELSE
+                                Return 'La ca...';
+                            END IF;
+
+                        ELSE
+                            RETURN 'La Ca... en la insercion, revise bien calabazo';
+                        END IF;
+            
+            END CASE;
+                --WHEN 5 THEN --
+        
+        END IF;
 		END;
 $BODY$
 LANGUAGE PLPGSQL;
