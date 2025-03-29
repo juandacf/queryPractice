@@ -1,1 +1,0 @@
-CREATE OR REPLACE FUNCTION fun_act_kardex()

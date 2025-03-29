@@ -1,5 +1,3 @@
-
-
 CREATE OR REPLACE FUNCTION fun_fact(wid_cliente tab_clientes.id_cliente%TYPE,
                                     wid_producto tab_productos.id_producto%TYPE,
                                     wcant tab_det_fact.val_cantidad%TYPE,
@@ -15,7 +13,7 @@ $$
     BEGIN
 -- TRAEMOS LOS ATRIBUTOS DE PARÁMETROS PARA TENERLOS SIEMPRE PRESENTE EN LA FUNCIÓN PRINCIPAL
         SELECT a.id_empresa,a.nom_empresa,a.dir_empresa,a.val_poriva,a.val_pordesc,a.val_puntos,a.val_inifact,a.val_finfact,
-               a.val_actfact,a.id_ciudad,b.nom_ciudad INTO wreg_pmtros FROM tab_pmtros a, tab_ciudades b
+               a.val_actfac,a.id_ciudad,b.nom_ciudad INTO wreg_pmtros FROM tab_pmtros a, tab_ciudades b
         WHERE a.id_ciudad = b.id_ciudad;
 
 -- VALIDO EL CLIENTE. SI NO EXISTE HAY ERROR
@@ -31,7 +29,7 @@ $$
             WHERE id_cliente = 22222222;
             IF FOUND THEN
                 wnom_completo = wreg_clientes.nom_cliente || ' ' || wreg_clientes.ape_cliente;
-                RAISE NOTICE 'Nombre del Cliente es %',wnom_completo;
+                RAISE NOTICE 'Nombre del Cliente es %',nombre_completo;
             ELSE
                 RAISE NOTICE 'Hay un error grave.. eL CÓDIGO 22222222 NO EXISTE... Vaya BRUTO QUE SOS';
                 RETURN FALSE;
@@ -48,10 +46,10 @@ $$
                     RAISE NOTICE '¡¡ ALERTA... UYYYYY ÚLTIMA FACTURA !!, no podrá seguir facturando... Vaya a la DIAN';
                 END IF;
                 wid_factura = wreg_pmtros.val_actfact;
-                wreg_pmtros.val_actfact = wreg_pmtros.val_actfact + 1;
-                UPDATE tab_pmtros SET val_actfact = wreg_pmtros.val_actfact;
+                wreg_pmtros.val_actfact = wreg.val_actfact + 1;
+                UPDATE tab_pmtros SET val_actfact = wreg_pmtros.actfact;
                 IF FOUND THEN
-                    RAISE NOTICE 'Número de fact. % actualizada en Pmtros. Vamos bien, dijo el borracho',wreg_pmtros.val_actfact;
+                    RAISE NOTICE 'Número de fact. % actualizada en Pmtros. Vamos bien, dijo el borracho',wreg_val_actfact;
                 ELSE
                     RAISE NOTICE 'Se totió la vuelta al actualizar pmtros...';
                     RETURN FALSE;
@@ -62,7 +60,6 @@ $$
                 IF FOUND THEN
                     RAISE NOTICE 'Encabezado de la factura % para el cliente %-% y producto %-% quedó listo...',wid_factura,
                                  wreg_clientes.id_cliente,wnom_completo,wid_producto,wreg_productos.nombre_producto;
-                    RETURN TRUE;
                 ELSE
                     RAISE NOTICE 'ERROR armando el Encabezado de la factura. Vaya para la nocturna y aprenda.....';
                     RETURN FALSE;
@@ -76,5 +73,3 @@ $$
 $$
 LANGUAGE PLPGSQL;
 -- HASTA ACÁ ES LA FUNCIÓN PRINCIPAL
-
---SELECT fun_fact(1,1,10,TRUE,TRUE,2);
